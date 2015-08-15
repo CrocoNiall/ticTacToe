@@ -1,10 +1,18 @@
 
-var gameBoardArray = [[0,0,0],
-                 [0,0,0],
-                 [0,0,0]];
+var gameBoardArray = [['','',''],
+                 ['','',''],
+                 ['','','']]
 
-//var winningCombinations = [000102,101111,202122,
-var currentPlayer = 'X'
+var winningCombinations = [['00','01','02'],
+                            ['10','11','11'],
+                            ['20','21','22'],
+                            ['00','10','20'],
+                            ['01','11','21'],
+                            ['02','12','22'],
+                            ['00','11','22'],
+                            ['02','22','20']]
+var currentPlayer = 'O'
+var winner;
 
 
 function eventListeners() {
@@ -32,10 +40,59 @@ function eventListeners() {
   sqr33.addEventListener('click', function() { changeSqrValue(currentPlayer, 'r3c3'); });
 }
 
+ // var winningCombinations = [[00,01,02],
+ //                            [10,11,11],
+ //                            [20,21,22],
+ //                            [00,10-20],
+ //                            [01,11,21],
+ //                            [02,12,22],
+ //                            [00,11,22],
+ //                            [02,22,20]]
+
+function checkWinner() {
+  for (var i = 0; i < winningCombinations.length; i++) {
+    var testingCombo = winningCombinations[i];
+      for (var x = 0; x < testingCombo.length; x++) {
+       // testingIndexCombo = testingCombo.split('')
+      
+        var testIndex1 = testingCombo[0];
+        var v1 = testIndex1[0]
+        var v2 = testIndex1[1]
+        var a = gameBoardArray[v1][v2];
+
+
+        var testIndex2 = testingCombo[1];
+        var v3 = testIndex2[0]
+        var v4 = testIndex2[1]
+        var b = gameBoardArray[v3][v4];
+
+        var testIndex3 = testingCombo[2];
+        var v5 = testIndex3[0]
+        var v6 = testIndex3[1]
+        var c = gameBoardArray[v5][v6];
+
+          if (a === 'X' && b ===  'X' && c=== 'X') {
+              winner = currentPlayer;
+              console.log(currentPlayer + ' wins***************');
+              break;
+          } else  if (a === 'O' && b === 'O' && c=== 'O') {
+              winner = currentPlayer;
+              console.log(currentPlayer + ' wins***************');
+              break;
+          } else {
+            console.log('no match');
+          }
+      }  
+  }
+
+
+}
+
 function changeSqrValue(currentPlayer, square) {
   document.getElementById(square).innerHTML = currentPlayer;
-  changePlayer();
   changeArrayValue(square);
+  checkWinner();
+  changePlayer();
 }
 
 
@@ -52,10 +109,7 @@ function changePlayer(){
   return currentPlayer;
 }
 
-function checkWinner() {
 
-
-}
 
 window.onload = function(){
   eventListeners();
