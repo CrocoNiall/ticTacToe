@@ -1,7 +1,9 @@
+// sets up gameBoard
 
 var gameBoardArray = [['','',''],
-                 ['','',''],
-                 ['','','']]
+                      ['','',''],
+                      ['','','']]
+// decalres all possible winning scenarios
 
 var winningCombinations = [['00','01','02'],
                             ['10','11','11'],
@@ -11,12 +13,12 @@ var winningCombinations = [['00','01','02'],
                             ['02','12','22'],
                             ['00','11','22'],
                             ['02','22','20']]
-var currentPlayer = 'O'
+var currentPlayer = 'O';
 var winner;
-
+var squareValue;
 
 function eventListeners() {
-
+//sets up event listeners
 //declare variables representing each game square 
   var sqr11 = document.getElementById('r1c1');
   var sqr12 = document.getElementById('r1c2');
@@ -40,37 +42,36 @@ function eventListeners() {
   sqr33.addEventListener('click', function() { changeSqrValue(currentPlayer, 'r3c3'); });
 }
 
- // var winningCombinations = [[00,01,02],
- //                            [10,11,11],
- //                            [20,21,22],
- //                            [00,10-20],
- //                            [01,11,21],
- //                            [02,12,22],
- //                            [00,11,22],
- //                            [02,22,20]]
 
 function checkWinner() {
+//Itterates over each possible winning combination and checks if the current gameBoardArray matches any scenario. 
+
+//loop through winningCombination array and perform action on each nested array
   for (var i = 0; i < winningCombinations.length; i++) {
+
+//perfom action on each element within each nested array
     var testingCombo = winningCombinations[i];
       for (var x = 0; x < testingCombo.length; x++) {
-       // testingIndexCombo = testingCombo.split('')
-      
+
+//gets value of first index
         var testIndex1 = testingCombo[0];
         var v1 = testIndex1[0]
         var v2 = testIndex1[1]
         var a = gameBoardArray[v1][v2];
 
-
+//gets value of second index
         var testIndex2 = testingCombo[1];
         var v3 = testIndex2[0]
         var v4 = testIndex2[1]
         var b = gameBoardArray[v3][v4];
 
+//gets value of third index
         var testIndex3 = testingCombo[2];
         var v5 = testIndex3[0]
         var v6 = testIndex3[1]
         var c = gameBoardArray[v5][v6];
 
+//compares all three values against eachother to determin a possible winner. 
           if (a === 'X' && b ===  'X' && c=== 'X') {
               winner = currentPlayer;
               console.log(currentPlayer + ' wins***************');
@@ -84,19 +85,33 @@ function checkWinner() {
           }
       }  
   }
-
-
 }
 
 function changeSqrValue(currentPlayer, square) {
-  document.getElementById(square).innerHTML = currentPlayer;
-  changeArrayValue(square);
-  checkWinner();
-  changePlayer();
+//amends HTML after calling the checkSquareValue() function to validate squares status then call the changeArrayValue() function to ammend coresponding array value. 
+  checkSquareValue(square);
+  if (squareValue == '') {
+    document.getElementById(square).innerHTML = currentPlayer;
+    changeArrayValue(square);
+    checkWinner();
+    changePlayer();
+  } else {
+    console.log('square already has a value')
+  }
+
 }
 
+function checkSquareValue (square) {
+//returns the value within gameBoard array
+  var indexString = square; 
+  var index1 = parseInt(indexString.charAt(1)) -1; 
+  var index2 = parseInt(indexString.charAt(3)) -1;
+  squareValue = gameBoardArray[index1][index2];
+  return squareValue;
+}
 
 function changeArrayValue (square) {
+//ammends value within array
   var indexString = square; 
   var index1 = parseInt(indexString.charAt(1)) -1; 
   var index2 = parseInt(indexString.charAt(3)) -1;
@@ -104,13 +119,13 @@ function changeArrayValue (square) {
 }
 
 function changePlayer(){
+//changes player from X to O || O to X after each move
   currentPlayer === 'X' ? currentPlayer = 'O' : currentPlayer = 'X';
   document.getElementById('currentPlayer').innerHTML = currentPlayer;
   return currentPlayer;
 }
 
-
-
 window.onload = function(){
+//calls event listeners on load
   eventListeners();
 }
