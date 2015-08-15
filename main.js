@@ -2,6 +2,8 @@
 var gameBoardArray = [[0,0,0],
                  [0,0,0],
                  [0,0,0]];
+
+//var winningCombinations = [000102,101111,202122,
 var currentPlayer = 'X'
 
 
@@ -32,20 +34,27 @@ function eventListeners() {
 
 function changeSqrValue(currentPlayer, square) {
   document.getElementById(square).innerHTML = currentPlayer;
-  //gameBoardArray[]
   changePlayer();
-  }
+  changeArrayValue(square);
+}
+
+
+function changeArrayValue (square) {
+  var indexString = square; 
+  var index1 = parseInt(indexString.charAt(1)) -1; 
+  var index2 = parseInt(indexString.charAt(3)) -1;
+  gameBoardArray[index1][index2] = currentPlayer;
+}
 
 function changePlayer(){
-  //currentPlayer === 'X' ? currentPlayer = 'O' : currentPlayer = 'X';
-  
-  if (currentPlayer == 'X') {
-    currentPlayer = 'O';
-  } else {
-    currentPlayer = 'X';
-  }
+  currentPlayer === 'X' ? currentPlayer = 'O' : currentPlayer = 'X';
   document.getElementById('currentPlayer').innerHTML = currentPlayer;
   return currentPlayer;
+}
+
+function checkWinner() {
+
+
 }
 
 window.onload = function(){
