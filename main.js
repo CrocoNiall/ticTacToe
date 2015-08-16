@@ -7,15 +7,16 @@ var gameBoardArray = [['','',''],
 
 var winningCombinations = [['00','01','02'],
                             ['10','11','11'],
-                            ['20','21','22'],
+                            ['20','11','22'],
                             ['00','10','20'],
                             ['01','11','21'],
                             ['02','12','22'],
                             ['00','11','22'],
-                            ['02','22','20']]
+                            ['02','11','20']]
 var currentPlayer = 'O';
 var winner;
 var squareValue;
+var computerPlay = true;
 
 function eventListeners() {
 //sets up event listeners
@@ -75,10 +76,14 @@ function checkWinner() {
           if (a === 'X' && b ===  'X' && c=== 'X') {
               winner = currentPlayer;
               console.log(currentPlayer + ' wins***************');
+              console.log(a,b,c);
+              computerPlay = false;
               break;
           } else  if (a === 'O' && b === 'O' && c=== 'O') {
               winner = currentPlayer;
               console.log(currentPlayer + ' wins***************');
+              console.log(a,b,c);
+              computerPlay = false;
               break;
           } else {
             console.log('no match');
@@ -89,16 +94,59 @@ function checkWinner() {
 
 function changeSqrValue(currentPlayer, square) {
 //amends HTML after calling the checkSquareValue() function to validate squares status then call the changeArrayValue() function to ammend coresponding array value. 
-  checkSquareValue(square);
+
+checkSquareValue(square);
   if (squareValue == '') {
     document.getElementById(square).innerHTML = currentPlayer;
     changeArrayValue(square);
     checkWinner();
     changePlayer();
-  } else {
+    console.log('next player is ' + currentPlayer);
+
+    computerPlay === true ? computerMove(currentPlayer) : console.log('computer isnt playeing');
+    
+    } else {
     console.log('square already has a value')
+    }
   }
 
+
+function computerMove() {
+
+var square = "r" + computerMoveGenerator() + "c" + computerMoveGenerator();
+console.log(square);
+checkSquareValue(square);
+  if (squareValue == '') {
+    document.getElementById(square).innerHTML = currentPlayer;
+    changeArrayValue(square);
+    checkWinner();
+    changePlayer();
+
+  } else {
+    console.log('already a value, recalculating');
+    computerMove(currentPlayer);
+  }
+
+}
+
+function computerMoveGenerator() {
+    var randomNumber = Math.random();
+    if (randomNumber < 0.33) {
+        return "1";
+    } else if (randomNumber < 0.66) {
+        return "2";
+    } else {
+        return "3";
+    }
+}
+
+function checkSquareValueComputer (square) {
+//returns the value within gameBoard array
+  var indexString = square; 
+  var index1 = parseInt(indexString.charAt(1) -1) ; 
+  var index2 = parseInt(indexString.charAt(3) -1) ;
+  squareValue = gameBoardArray[index1][index2];
+  return squareValue;
 }
 
 function checkSquareValue (square) {
@@ -120,9 +168,10 @@ function changeArrayValue (square) {
 
 function changePlayer(){
 //changes player from X to O || O to X after each move
+
   currentPlayer === 'X' ? currentPlayer = 'O' : currentPlayer = 'X';
   document.getElementById('currentPlayer').innerHTML = currentPlayer;
-  return currentPlayer;
+  console.log('player changed to ' + currentPlayer);
 }
 
 window.onload = function(){
