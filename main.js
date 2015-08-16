@@ -7,8 +7,8 @@ var gameBoardArray = [['','',''],
 // decalres all possible winning scenarios
 
 var winningCombinations = [['00','01','02'],
-                            ['10','11','11'],
-                            ['20','11','22'],
+                            ['10','11','12'],
+                            ['20','21','22'],
                             ['00','10','20'],
                             ['01','11','21'],
                             ['02','12','22'],
@@ -46,18 +46,16 @@ function eventListeners() {
   sqr32.addEventListener('click', function() { changeSqrValue(currentPlayer, 'r3c2'); });
   sqr33.addEventListener('click', function() { changeSqrValue(currentPlayer, 'r3c3'); });
 
- // compPlayTrue.addEventListener('click', function() { changeNoOfPlayers(true); });
- // compPlayfalse.addEventListener('click', function() { changeNoOfPlayers(false); });
- 
  compPlayTrue.addEventListener('click', function(){ changeNoOfPlayers('compPlayTrue'); }); 
  compPlayFalse.addEventListener('click', function(){ changeNoOfPlayers('compPlayFalse'); }); 
 }
 
 function changeNoOfPlayers(x) {
  computerPlay = document.getElementById(x).value;
-  console.log(computerPlay);
   if (x === 'compPlayTrue'){
     computerPlay = true;
+  } else {
+
   }
   resetGameBoard();
 }
@@ -77,9 +75,7 @@ function resetGameBoard() {
         gameBoardArray[i][0] = null;
         gameBoardArray[i][1] = null;
         gameBoardArray[i][2] = null;
-        console.log('array sement cleared')
-    
-
+        console.log('array sements cleared')
   }
 }
 
@@ -116,30 +112,67 @@ function checkWinner() {
           if (a === 'X' && b ===  'X' && c=== 'X') {
               winner = currentPlayer;
               console.log('The winner is:        ' + currentPlayer);
-              computerPlay = false;
+              setWinner();
               break;
           } else  if (a === 'O' && b === 'O' && c=== 'O') {
               winner = currentPlayer;
               console.log('The winner is:        ' + currentPlayer);
-              computerPlay = false;
+              setWinner();
               break;
           } else {
             console.log('no match');
+            checkTie();
           }
       }  
   }
 }
 
+function setWinner() {
+  document.getElementById("winnerContainer").style.display = "block"; 
+  var winnerHTML = document.getElementById('winner').innerHTML = currentPlayer;
+  document.getElementById('winnerContainer').addEventListener('click', function() {
+    resetGameBoard();
+    document.getElementById("winnerContainer").style.display = "none"; 
+
+  });
+}
+function checkTie() {
+  var tie = 0;
+
+  gameBoardArray[0][0] == null ? tie++ : tie = tie;
+  gameBoardArray[0][1] == null ? tie++ : tie = tie;
+  gameBoardArray[0][2] == null ? tie++ : tie = tie;
+  gameBoardArray[1][0] == null ? tie++ : tie = tie;
+  gameBoardArray[1][1] == null ? tie++ : tie = tie;
+  gameBoardArray[1][2] == null ? tie++ : tie = tie;
+  gameBoardArray[2][0] == null ? tie++ : tie = tie;
+  gameBoardArray[2][1] == null ? tie++ : tie = tie;
+  gameBoardArray[2][2] == null ? tie++ : tie = tie;
+
+  tie == 0 ? tieTrue() : console.log('not a tie');
+}
+
+function tieTrue() {
+
+  document.getElementById("winnerContainer").style.display = "block"; 
+  var winnerHTML = document.getElementById('winner').innerHTML = 'tie';
+  document.getElementById('winnerContainer').addEventListener('click', function() {
+    resetGameBoard();
+    document.getElementById("winnerContainer").style.display = "none"; 
+
+});
+}
+
+
 function changeSqrValue(currentPlayer, square) {
 //amends HTML after calling the checkSquareValue() function to validate squares status then call the changeArrayValue() function to ammend coresponding array value. 
 
-checkSquareValue(square);
+  checkSquareValue(square);
   if (squareValue == null || squareValue == '') {
     document.getElementById(square).innerHTML = currentPlayer;
     changeArrayValue(square);
     checkWinner();
     changePlayer();
-
     computerPlay === true ? computerMove(currentPlayer) : console.log('computer isnt playeing');
     
     } else {

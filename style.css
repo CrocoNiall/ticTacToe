@@ -3,13 +3,24 @@ body {
   padding: 0 100px 0 100px;
   background: url(images/masterBackground.jpg) repeat;
   font: white;
-  
+}
+#player {
+  font-size: 20px;
 }
 h1 {
   font-size: 100px;
   margin-bottom: 10px;
 }
 h2 {
+  margin: 0;
+  margin-top: 10px;
+}
+ol {
+  margin: 0;
+  padding: 0 0 0 20px;
+}
+p{
+  font-size: 50px;
   margin: 0;
 }
 
@@ -18,11 +29,21 @@ h2 {
   margin: 0 auto;
   width: 600px;
   background-color: none;
-  padding: 70px 50px 300px 50px;
+  padding: 50px 50px 50px 50px;
   border: dashed black 3px;
   margin-bottom: 200px;
 
 }
+
+#winnerContainer {
+display: none;
+margin-top: 20px;
+margin-left: 20px;
+background-color: none;
+text-align: center;
+border: dashed black 3px;
+}
+
 
 #gameBoard {
 display: inline-block;

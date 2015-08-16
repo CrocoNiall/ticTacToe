@@ -8,33 +8,46 @@
 
 <body>
   <h1>Tic  Tac  Toe</h1>
-  <p> Current Player: <b id='currentPlayer'> X </b></p>
+  <p id='player'> Current Player: <b id='currentPlayer'> X </b></p>
     <div id="innerContainer">
       <div id= "gameBoard">
-        <div class="row" id="r1">
-          <div class="gameBoardSquare" id="r1c1"></div>
-          <div class="gameBoardSquare" id="r1c2"></div>
-          <div class="gameBoardSquare" id="r1c3"></div>
-        </div>
-        <div class= "row" id="r2">
-          <div class="gameBoardSquare" id="r2c1"></div>
-          <div class="gameBoardSquare" id="r2c2"></div>
-          <div class="gameBoardSquare" id="r2c3"></div>
-        </div>
-        <div class="row" id="r3">
-          <div class="gameBoardSquare" id="r3c1"></div>
-          <div class="gameBoardSquare" id="r3c2"></div>
-          <div class="gameBoardSquare" id="r3c3"></div>
-        </div>
+
+          <div class="row" id="r1">
+            <div class="gameBoardSquare" id="r1c1"></div>
+            <div class="gameBoardSquare" id="r1c2"></div>
+            <div class="gameBoardSquare" id="r1c3"></div>
+          </div>
+          <div class= "row" id="r2">
+            <div class="gameBoardSquare" id="r2c1"></div>
+            <div class="gameBoardSquare" id="r2c2"></div>
+            <div class="gameBoardSquare" id="r2c3"></div>
+          </div>
+          <div class="row" id="r3">
+            <div class="gameBoardSquare" id="r3c1"></div>
+            <div class="gameBoardSquare" id="r3c2"></div>
+            <div class="gameBoardSquare" id="r3c3"></div>
+          </div>
+
       </div>
       <div id="gamePannel">
+      <h2>Game Rules</h2>
+      <ol>
+        <li>First play to get three in a row, wins!</li>
+        <li>No Cheating!</li>
+        <li>Don't be a bad loser!</li>
+      </ol>
       <h2>Game Settings </h2>
       <form>
         <input type="radio" name="compPlay" id="compPlayTrue" value='true' checked>1 Player (vs computer)      
         <input type="radio" name="compPlay" id="compPlayFalse" value='false'>2 Players
       </form> 
-
       </div>
+      <div id="winnerContainer">
+      <h2>The winner is:</h2>
+      <p><b id="winner"></b></p>
+      <p> Click to play again!</p>
+      </div>
+
 
 
     </div>
