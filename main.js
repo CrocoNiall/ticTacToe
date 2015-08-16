@@ -1,7 +1,7 @@
 // sets up gameBoard
 var gameBoardArray;
 function setUpGameBoardArray() {
-  gameBoardArray = [['','',''],
+      gameBoardArray = [['','',''],
                         ['','',''],
                         ['','','']];
 }
@@ -18,6 +18,8 @@ var winningCombinations = [['00','01','02'],
 var currentPlayer = 'O';
 var squareValue;
 var computerPlay = true;
+var xWinsCount = 0;
+var oWinsCount = 0;
 
 function eventListeners() {
 //sets up event listeners
@@ -71,6 +73,9 @@ function resetGameBoard() {
   document.getElementById('r3c2').innerHTML = null;
   document.getElementById('r3c3').innerHTML = null;
   setUpGameBoardArray();
+
+//below is the old funcion that was used to clear gameBoard array however this method caused me problems so i creaed the setUpGameBoardArray() function - i should have just done that in the first place. 
+
   // for (var i = 0; i < gameBoardArray.length; i++){
   //       gameBoardArray[i][0] = null;
   //       gameBoardArray[i][1] = null;
@@ -112,12 +117,13 @@ function checkWinner() {
           if (a === 'X' && b === 'X' && c === 'X') {
               //console.log('The winner is:        ' + currentPlayer);
               setWinner('X');
+              updateScore('O');           
               break;
-             
           } else  if (a === 'O' && b === 'O' && c=== 'O') {
               //console.log('The winner is:        ' + currentPlayer);
               setWinner('O');
-            break;
+              updateScore('O');
+              break;
           } else {
             //console.log('no match');
           }
@@ -145,11 +151,24 @@ function checkTie() {
 
 }
 
+function updateScore(winner) {
+  if (winner === 'X') {
+   xWinsCount++;
+   document.getElementById('xTotal').innerHTML = xWinsCount;
+   } else if (winner === 'O'){
+      oWinsCount++;
+      document.getElementById('oTotal').innerHTML = oWinsCount;
+    } else {
+
+    }
+
+}
+
 function setWinner(winner) {
 //manipulates DOM to display winner window after each game has been won
   document.getElementById("winnerContainer").style.display = "block"; 
   var winnerHTML = document.getElementById('winner').innerHTML = winner;
-
+   
   document.getElementById('winnerContainer').addEventListener('click', function() {
     resetGameBoard();
     document.getElementById("winnerContainer").style.display = "none"; 

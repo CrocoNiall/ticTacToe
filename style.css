@@ -27,9 +27,9 @@ p{
 #innerContainer {
   display: block;
   margin: 0 auto;
-  width: 600px;
+  width: 770px;
   background-color: none;
-  padding: 50px 50px 50px 50px;
+  padding: 50px 40px 50px 20px;
   border: dashed black 3px;
   margin-bottom: 200px;
 
@@ -59,6 +59,15 @@ padding: 10px 10px 0 20px;
 width: 300px;
 height: 190px;
 margin-left: 9px;
+}
+#scoreCounter {
+display: inline-block;
+vertical-align: top;
+border: dashed black 3px;
+padding: 10px 10px 0 20px;
+height: 190px;
+margin-left: 9px;
+width: 120px;
 }
 
 .row {
