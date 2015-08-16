@@ -1,9 +1,10 @@
 // sets up gameBoard
-
-var gameBoardArray = [['','',''],
-                      ['','',''],
-                      ['','','']]
-
+var gameBoardArray;
+function setUpGameBoardArray() {
+  gameBoardArray = [['','',''],
+                        ['','',''],
+                        ['','','']];
+}
 // decalres all possible winning scenarios
 
 var winningCombinations = [['00','01','02'],
@@ -15,7 +16,6 @@ var winningCombinations = [['00','01','02'],
                             ['00','11','22'],
                             ['02','11','20']]
 var currentPlayer = 'O';
-var winner;
 var squareValue;
 var computerPlay = true;
 
@@ -70,13 +70,13 @@ function resetGameBoard() {
   document.getElementById('r3c1').innerHTML = null;
   document.getElementById('r3c2').innerHTML = null;
   document.getElementById('r3c3').innerHTML = null;
-  
-  for (var i = 0; i < gameBoardArray.length; i++){
-        gameBoardArray[i][0] = null;
-        gameBoardArray[i][1] = null;
-        gameBoardArray[i][2] = null;
-        console.log('array sements cleared')
-  }
+  setUpGameBoardArray();
+  // for (var i = 0; i < gameBoardArray.length; i++){
+  //       gameBoardArray[i][0] = null;
+  //       gameBoardArray[i][1] = null;
+  //       gameBoardArray[i][2] = null;
+  //       console.log('array sements cleared')
+  // }
 }
 
 
@@ -84,11 +84,11 @@ function checkWinner() {
 //Itterates over each possible winning combination and checks if the current gameBoardArray matches any scenario. 
 
 //loop through winningCombination array and perform action on each nested array
-  for (var i = 0; i < winningCombinations.length; i++) {
+  for (var i = 0; i < winningCombinations.length -1; i++) {
 
 //perfom action on each element within each nested array
     var testingCombo = winningCombinations[i];
-      for (var x = 0; x < testingCombo.length; x++) {
+      for (var x = 0; x < testingCombo.length -1; x++) {
 
 //gets value of first index
         var testIndex1 = testingCombo[0];
@@ -109,60 +109,52 @@ function checkWinner() {
         var c = gameBoardArray[v5][v6];
 
 //compares all three values against eachother to determin a possible winner. 
-          if (a === 'X' && b ===  'X' && c=== 'X') {
-              winner = currentPlayer;
-              console.log('The winner is:        ' + currentPlayer);
-              setWinner();
+          if (a === 'X' && b === 'X' && c === 'X') {
+              //console.log('The winner is:        ' + currentPlayer);
+              setWinner('X');
               break;
+             
           } else  if (a === 'O' && b === 'O' && c=== 'O') {
-              winner = currentPlayer;
-              console.log('The winner is:        ' + currentPlayer);
-              setWinner();
-              break;
+              //console.log('The winner is:        ' + currentPlayer);
+              setWinner('O');
+            break;
           } else {
-            console.log('no match');
-            checkTie();
+            //console.log('no match');
           }
       }  
   }
 }
 
-function setWinner() {
+function checkTie() {
+  var count = 0;
+  for (var i = 0; i < gameBoardArray.length -1; i++) {
+    gameBoardArray[i][0] == '' ? count++ : count+0;
+    gameBoardArray[i][1] == '' ? count++ : count+0;
+    gameBoardArray[i][2] == '' ? count++ : count+0;
+
+    if (count === 0) {
+      console.log('tie')
+      setWinner('tie');
+      return count;
+
+    } else {
+      console.log('not zero but '+ count);
+      return count;
+    }
+  }
+
+}
+
+function setWinner(winner) {
+//manipulates DOM to display winner window after each game has been won
   document.getElementById("winnerContainer").style.display = "block"; 
-  var winnerHTML = document.getElementById('winner').innerHTML = currentPlayer;
+  var winnerHTML = document.getElementById('winner').innerHTML = winner;
+
   document.getElementById('winnerContainer').addEventListener('click', function() {
     resetGameBoard();
     document.getElementById("winnerContainer").style.display = "none"; 
-
   });
 }
-function checkTie() {
-  var tie = 0;
-
-  gameBoardArray[0][0] == null ? tie++ : tie = tie;
-  gameBoardArray[0][1] == null ? tie++ : tie = tie;
-  gameBoardArray[0][2] == null ? tie++ : tie = tie;
-  gameBoardArray[1][0] == null ? tie++ : tie = tie;
-  gameBoardArray[1][1] == null ? tie++ : tie = tie;
-  gameBoardArray[1][2] == null ? tie++ : tie = tie;
-  gameBoardArray[2][0] == null ? tie++ : tie = tie;
-  gameBoardArray[2][1] == null ? tie++ : tie = tie;
-  gameBoardArray[2][2] == null ? tie++ : tie = tie;
-
-  tie == 0 ? tieTrue() : console.log('not a tie');
-}
-
-function tieTrue() {
-
-  document.getElementById("winnerContainer").style.display = "block"; 
-  var winnerHTML = document.getElementById('winner').innerHTML = 'tie';
-  document.getElementById('winnerContainer').addEventListener('click', function() {
-    resetGameBoard();
-    document.getElementById("winnerContainer").style.display = "none"; 
-
-});
-}
-
 
 function changeSqrValue(currentPlayer, square) {
 //amends HTML after calling the checkSquareValue() function to validate squares status then call the changeArrayValue() function to ammend coresponding array value. 
@@ -176,7 +168,7 @@ function changeSqrValue(currentPlayer, square) {
     computerPlay === true ? computerMove(currentPlayer) : console.log('computer isnt playeing');
     
     } else {
-    console.log('square already has a value')
+    //console.log('square already has a value')
     }
   }
 
@@ -184,7 +176,7 @@ function changeSqrValue(currentPlayer, square) {
 function computerMove() {
 
 var square = "r" + computerMoveGenerator() + "c" + computerMoveGenerator();
-console.log(square);
+//console.log(square);
 checkSquareValue(square);
   if (squareValue == '' || squareValue == null) {
     document.getElementById(square).innerHTML = currentPlayer;
@@ -193,8 +185,8 @@ checkSquareValue(square);
     changePlayer();
 
   } else {
-    console.log('already a value, recalculating');
-    computerMove(currentPlayer);
+    //console.log('already a value, recalculating');
+    computerMove();
   }
 
 }
@@ -202,11 +194,11 @@ checkSquareValue(square);
 function computerMoveGenerator() {
     var randomNumber = Math.random();
     if (randomNumber < 0.33) {
-        return "1";
-    } else if (randomNumber < 0.66) {
-        return "2";
-    } else {
-        return "3";
+          return "1";
+      } else if (randomNumber < 0.66) {
+          return "2";
+      } else {
+          return "3";
     }
 }
 
@@ -234,11 +226,11 @@ function changeArrayValue (square) {
   var index1 = parseInt(indexString.charAt(1)) -1; 
   var index2 = parseInt(indexString.charAt(3)) -1;
   gameBoardArray[index1][index2] = currentPlayer;
+  checkTie();
 }
 
 function changePlayer(){
 //changes player from X to O || O to X after each move
-
   currentPlayer === 'X' ? currentPlayer = 'O' : currentPlayer = 'X';
   document.getElementById('currentPlayer').innerHTML = currentPlayer;
 }
@@ -246,4 +238,5 @@ function changePlayer(){
 window.onload = function(){
 //calls event listeners on load
   eventListeners();
+  setUpGameBoardArray();
 }
