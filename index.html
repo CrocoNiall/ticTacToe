@@ -3,10 +3,11 @@
 <head>
   <title> Tic Tac Toe </title>
   <link rel="stylesheet" type="text/css" href="style.css">
+  <link href='http://fonts.googleapis.com/css?family=Schoolbell' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
-  <h1>Tic Tac Toe Game</h1>
+  <h1>Tic  Tac  Toe</h1>
   <p> Current Player: <b id='currentPlayer'> X </b></p>
     <div id="innerContainer">
       <div id= "gameBoard">
@@ -25,6 +26,14 @@
           <div class="gameBoardSquare" id="r3c2"></div>
           <div class="gameBoardSquare" id="r3c3"></div>
         </div>
+      </div>
+      <div id="gamePannel">
+      <h2>Game Settings </h2>
+      <form>
+        <input type="radio" name="compPlay" id="compPlayTrue" value='true' checked>1 Player (vs computer)      
+        <input type="radio" name="compPlay" id="compPlayFalse" value='false'>2 Players
+      </form> 
+
       </div>
 
 

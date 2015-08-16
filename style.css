@@ -1,36 +1,59 @@
+body {
+  font-family: 'Schoolbell', cursive;
+  padding: 0 100px 0 100px;
+  background: url(images/masterBackground.jpg) repeat;
+  font: white;
+  
+}
+h1 {
+  font-size: 100px;
+  margin-bottom: 10px;
+}
+h2 {
+  margin: 0;
+}
 
 #innerContainer {
   display: block;
   margin: 0 auto;
-  max-width: 500px;
-
-}
-p {
+  width: 600px;
+  background-color: none;
+  padding: 70px 50px 300px 50px;
+  border: dashed black 3px;
+  margin-bottom: 200px;
 
 }
 
 #gameBoard {
-display: block;
-margin: 0 auto;
+display: inline-block;
 text-align: center;
+width: 250px;
+}
+
+#gamePannel {
+display: inline-block;
+vertical-align: top;
+border: dashed black 3px;
+padding: 10px 10px 0 20px;
+width: 300px;
+height: 190px;
+margin-left: 9px;
 }
 
 .row {
-margin-bottom: 3px;
+margin-bottom: 5px;
 padding: 0;
-max-height: 58px;
-max-width: 186px;
-display: block;
-
+max-height: 68px;
 }
 
 .gameBoardSquare {
 display: inline-block;
-height: 50px;
-width: 50px;
+height: 60px;
+width: 60px;
 padding: 0;
-background: red;
+background: grey;
 border: solid black 2px;
 text-align: center;
 vertical-align: middle;
+font-size: 40px;
 }

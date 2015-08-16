@@ -3,6 +3,7 @@
 var gameBoardArray = [['','',''],
                       ['','',''],
                       ['','','']]
+
 // decalres all possible winning scenarios
 
 var winningCombinations = [['00','01','02'],
@@ -31,6 +32,9 @@ function eventListeners() {
   var sqr32 = document.getElementById('r3c2');
   var sqr33 = document.getElementById('r3c3');
 
+  var compPlayTrue = document.getElementById('compPlayTrue');
+  var compPlayFalse = document.getElementById('compPlayFalse');
+
 // add event listeners to each variable to trigger changeSqrValue() function
   sqr11.addEventListener('click', function() { changeSqrValue(currentPlayer, 'r1c1'); });
   sqr12.addEventListener('click', function() { changeSqrValue(currentPlayer, 'r1c2'); });
@@ -41,7 +45,21 @@ function eventListeners() {
   sqr31.addEventListener('click', function() { changeSqrValue(currentPlayer, 'r3c1'); });
   sqr32.addEventListener('click', function() { changeSqrValue(currentPlayer, 'r3c2'); });
   sqr33.addEventListener('click', function() { changeSqrValue(currentPlayer, 'r3c3'); });
+
+ // compPlayTrue.addEventListener('click', function() { changeNoOfPlayers(true); });
+ // compPlayfalse.addEventListener('click', function() { changeNoOfPlayers(false); });
+ 
+ compPlayTrue.addEventListener('click', function(){ changeNoOfPlayers('compPlayTrue'); }); 
+ compPlayFalse.addEventListener('click', function(){ changeNoOfPlayers('compPlayFalse'); }); 
 }
+
+function changeNoOfPlayers(x) {
+ computerPlay = document.getElementById(x).value;
+
+  console.log(computerPlay);
+
+}
+
 
 
 function checkWinner() {
@@ -75,14 +93,12 @@ function checkWinner() {
 //compares all three values against eachother to determin a possible winner. 
           if (a === 'X' && b ===  'X' && c=== 'X') {
               winner = currentPlayer;
-              console.log(currentPlayer + ' wins***************');
-              console.log(a,b,c);
+              console.log('The winner is:        ' + currentPlayer);
               computerPlay = false;
               break;
           } else  if (a === 'O' && b === 'O' && c=== 'O') {
               winner = currentPlayer;
-              console.log(currentPlayer + ' wins***************');
-              console.log(a,b,c);
+              console.log('The winner is:        ' + currentPlayer);
               computerPlay = false;
               break;
           } else {
@@ -101,7 +117,6 @@ checkSquareValue(square);
     changeArrayValue(square);
     checkWinner();
     changePlayer();
-    console.log('next player is ' + currentPlayer);
 
     computerPlay === true ? computerMove(currentPlayer) : console.log('computer isnt playeing');
     
@@ -171,7 +186,6 @@ function changePlayer(){
 
   currentPlayer === 'X' ? currentPlayer = 'O' : currentPlayer = 'X';
   document.getElementById('currentPlayer').innerHTML = currentPlayer;
-  console.log('player changed to ' + currentPlayer);
 }
 
 window.onload = function(){
