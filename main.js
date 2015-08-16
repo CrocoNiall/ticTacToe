@@ -55,11 +55,33 @@ function eventListeners() {
 
 function changeNoOfPlayers(x) {
  computerPlay = document.getElementById(x).value;
-
   console.log(computerPlay);
-
+  if (x === 'compPlayTrue'){
+    computerPlay = true;
+  }
+  resetGameBoard();
 }
 
+function resetGameBoard() {
+  document.getElementById('r1c1').innerHTML = null;
+  document.getElementById('r1c2').innerHTML = null;
+  document.getElementById('r1c3').innerHTML = null;
+  document.getElementById('r2c1').innerHTML = null;
+  document.getElementById('r2c2').innerHTML = null;
+  document.getElementById('r2c3').innerHTML = null;
+  document.getElementById('r3c1').innerHTML = null;
+  document.getElementById('r3c2').innerHTML = null;
+  document.getElementById('r3c3').innerHTML = null;
+  
+  for (var i = 0; i < gameBoardArray.length; i++){
+        gameBoardArray[i][0] = null;
+        gameBoardArray[i][1] = null;
+        gameBoardArray[i][2] = null;
+        console.log('array sement cleared')
+    
+
+  }
+}
 
 
 function checkWinner() {
@@ -112,7 +134,7 @@ function changeSqrValue(currentPlayer, square) {
 //amends HTML after calling the checkSquareValue() function to validate squares status then call the changeArrayValue() function to ammend coresponding array value. 
 
 checkSquareValue(square);
-  if (squareValue == '') {
+  if (squareValue == null || squareValue == '') {
     document.getElementById(square).innerHTML = currentPlayer;
     changeArrayValue(square);
     checkWinner();
@@ -131,7 +153,7 @@ function computerMove() {
 var square = "r" + computerMoveGenerator() + "c" + computerMoveGenerator();
 console.log(square);
 checkSquareValue(square);
-  if (squareValue == '') {
+  if (squareValue == '' || squareValue == null) {
     document.getElementById(square).innerHTML = currentPlayer;
     changeArrayValue(square);
     checkWinner();
