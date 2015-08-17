@@ -20,6 +20,7 @@ var squareValue;
 var computerPlay = true;
 var xWinsCount = 0;
 var oWinsCount = 0;
+var counter = 0;
 
 function eventListeners() {
 //sets up event listeners
@@ -132,21 +133,28 @@ function checkWinner() {
 }
 
 function checkTie() {
-  var count = 0;
-  for (var i = 0; i < gameBoardArray.length -1; i++) {
-    gameBoardArray[i][0] == '' ? count++ : count+0;
-    gameBoardArray[i][1] == '' ? count++ : count+0;
-    gameBoardArray[i][2] == '' ? count++ : count+0;
+  // var count = 0;
+  // for (var i = 0; i < gameBoardArray.length -1; i++) {
+  //   gameBoardArray[i][0] == '' ? count++ : count+0;
+  //   gameBoardArray[i][1] == '' ? count++ : count+0;
+  //   gameBoardArray[i][2] == '' ? count++ : count+0;
 
-    if (count === 0) {
-      console.log('tie')
-      setWinner('tie');
-      return count;
+  //   if (count === 0) {
+  //     console.log('tie')
+  //     setWinner('tie');
+  //     return count;
 
-    } else {
-      console.log('not zero but '+ count);
-      return count;
-    }
+  //   } else {
+  //     console.log('not zero but '+ count);
+  //     return count;
+  //   }
+  // }
+  if (counter === 10) {
+    setWinner('tie');
+    counter = 0;
+    return counter;
+  } else {
+    return counter;
   }
 
 }
@@ -185,6 +193,7 @@ function changeSqrValue(currentPlayer, square) {
     checkWinner();
     changePlayer();
     computerPlay === true ? computerMove(currentPlayer) : console.log('computer isnt playeing');
+  
     
     } else {
     //console.log('square already has a value')
@@ -245,6 +254,7 @@ function changeArrayValue (square) {
   var index1 = parseInt(indexString.charAt(1)) -1; 
   var index2 = parseInt(indexString.charAt(3)) -1;
   gameBoardArray[index1][index2] = currentPlayer;
+  counter++;
   checkTie();
 }
 
